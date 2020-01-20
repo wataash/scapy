@@ -42,6 +42,7 @@ def get_if_raw_hwaddr(iff):
     :param iff: the network interface name as a string
     :returns: the corresponding raw MAC address
     """
+    import scapy.arch
     from scapy.arch import SIOCGIFHWADDR
     return struct.unpack("16xh6s8x", get_if(iff, SIOCGIFHWADDR))
 
@@ -102,8 +103,10 @@ def compile_filter(filter_exp, iface=None, linktype=None,
                 iface = conf.iface
         # Try to guess linktype to avoid requiring root
         try:
-            arphd = get_if_raw_hwaddr(iface)[0]
-            linktype = ARPHRD_TO_DLT.get(arphd)
+            pass
+            # TODO: raises at: from scapy.arch import SIOCGIFHWADDR
+            # arphd = get_if_raw_hwaddr(iface)[0]
+            # linktype = ARPHRD_TO_DLT.get(arphd)
         except Exception:
             # Failed to use linktype: use the interface
             pass

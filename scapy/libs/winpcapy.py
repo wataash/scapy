@@ -244,6 +244,23 @@ pcap_addr_t = pcap_addr
 ##
 
 
+# https://docs.python.org/3/library/ctypes.html
+# > class ctypes._FuncPtr
+#
+# ctypes._FuncPtr  # ??? AttributeError
+# pcap_open_live: ctypes._FuncPtr = _lib.pcap_open_live
+# pcap_open_live.argtypes  # completes
+#
+# ctypes._FuncPointer  # AttributeError
+# pcap_open_live: ctypes._FuncPointer = _lib.pcap_open_live
+# pcap_open_live.argtypes  # completes
+#
+# type(pcap_open_live)  # <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
+
+# good
+# pcap_open_live: pcap_handler = _lib.pcap_open_live
+
+
 # values for enumeration 'pcap_direction_t'
 # pcap_direction_t = c_int # enum
 
